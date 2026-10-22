@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="ru"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<title>Волна — музыка</title>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;700&family=Manrope:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#120f24;--pl:#2a1b4d;--rose:#ff6b8b;--mint:#5ef2d0;--tx:#f4f0ff;--mu:#a79fc4;--gl:rgba(255,255,255,.07)}
+*{box-sizing:border-box;margin:0;-webkit-tap-highlight-color:transparent}
+body{background:var(--bg);color:var(--tx);font:15px/1.4 Manrope,system-ui,sans-serif;min-height:100vh;padding-bottom:calc(96px + env(safe-area-inset-bottom))}
+body:before{content:"";position:fixed;inset:-20%;z-index:-1;background:radial-gradient(40% 30% at 20% 15%,#ff6b8b55,transparent),radial-gradient(40% 35% at 85% 40%,#5ef2d033,transparent),radial-gradient(50% 40% at 40% 90%,#6a4cff44,transparent);animation:dr 18s ease-in-out infinite alternate}
+@keyframes dr{to{transform:translate(4%,3%) scale(1.1)}}
+header{padding:calc(20px + env(safe-area-inset-top)) 20px 8px}
+h1{font:700 26px Unbounded,sans-serif;letter-spacing:-.5px;display:flex;justify-content:space-between;align-items:center}
+h1 button{background:var(--gl);border:0;color:var(--tx);width:40px;height:40px;border-radius:50%;font-size:18px}
+.s{margin-top:14px;display:flex;background:var(--gl);border-radius:22px;padding:4px 4px 4px 16px;backdrop-filter:blur(14px)}
+.s input{flex:1;background:none;border:0;color:var(--tx);font:inherit;outline:0;min-width:0}
+.s button{border:0;border-radius:18px;padding:10px 18px;font-weight:600;background:linear-gradient(135deg,var(--rose),#ff9a6b);color:#2a0f1a}
+.ch{display:flex;gap:8px;overflow-x:auto;padding:12px 20px;scrollbar-width:none}
+.ch button{flex:none;border:0;color:var(--tx);background:var(--gl);padding:8px 16px;border-radius:16px;font:inherit;transition:.25s}
+.ch button.on{background:var(--tx);color:var(--bg)}
+h2{font:500 15px Unbounded,sans-serif;padding:6px 20px}
+.it{display:flex;align-items:center;gap:12px;padding:8px 20px;transition:background .2s}
+.it:active{background:var(--gl)}.it.cur .t{color:var(--mint)}
+.it img{width:56px;height:56px;border-radius:14px;object-fit:cover;background:var(--pl)}
+.it div{flex:1;min-width:0}.t{font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.a{color:var(--mu);font-size:13px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.hb{background:none;border:0;color:var(--mu);font-size:20px}.hb.on{color:var(--rose)}
+.msg{padding:40px 28px;color:var(--mu);text-align:center}
+#mini{position:fixed;left:12px;right:12px;bottom:calc(12px + env(safe-area-inset-bottom));background:rgba(42,27,77,.75);backdrop-filter:blur(22px);border-radius:26px;display:none;align-items:center;gap:12px;padding:8px 14px 8px 8px;box-shadow:0 10px 40px #0008;transition:transform .4s}
+#mini img{width:48px;height:48px;border-radius:18px;object-fit:cover}
+#mini div{flex:1;min-width:0}
+.pb{border:0;width:44px;height:44px;border-radius:50%;background:var(--tx);color:var(--bg);font-size:18px}
+#mini .pb{background:var(--mint)}
+#mp{position:absolute;left:22px;right:22px;bottom:0;height:2px;background:var(--rose);width:0;border-radius:2px}
+#sh{position:fixed;inset:0;z-index:5;background:var(--bg);transform:translateY(100%);transition:transform .5s cubic-bezier(.2,.8,.2,1);padding:calc(16px + env(safe-area-inset-top)) 24px calc(24px + env(safe-area-inset-bottom));display:flex;flex-direction:column;overflow:auto}
+#sh.open{transform:none}
+#sh:before{content:"";position:absolute;inset:0;background:radial-gradient(60% 40% at 50% 25%,#ff6b8b44,transparent),radial-gradient(50% 40% at 80% 90%,#5ef2d033,transparent);z-index:-1}
+.dn{align-self:center;width:44px;height:5px;border-radius:3px;background:var(--mu);border:0;margin-bottom:18px}
+.vid{width:100%;aspect-ratio:16/9;border-radius:28px;overflow:hidden;box-shadow:0 20px 60px #ff6b8b33;background:#000}
+.vid iframe{width:100%;height:100%}
+#sh h3{font:700 20px Unbounded,sans-serif;margin-top:26px;line-height:1.25}
+#sh .a{font-size:15px;margin-top:4px}
+input[type=range]{width:100%;margin-top:26px;accent-color:var(--mint)}
+.tm{display:flex;justify-content:space-between;color:var(--mu);font-size:12px}
+.ct{display:flex;justify-content:center;align-items:center;gap:22px;margin-top:20px}
+.ct button{border:0;background:none;color:var(--tx);font-size:28px}.ct .pb{width:72px;height:72px;font-size:28px;background:linear-gradient(135deg,var(--mint),#7ab8ff)}
+#md{position:fixed;inset:0;z-index:9;background:#000a;display:none;align-items:center;padding:24px}
+#md.open{display:flex}#md div{background:var(--pl);border-radius:28px;padding:24px;width:100%}
+#md p{color:var(--mu);margin:8px 0 14px;font-size:13px}
+#md input{width:100%;padding:12px 14px;border-radius:14px;border:0;background:var(--gl);color:var(--tx);font:inherit;margin-bottom:12px}
+#md .pb{width:100%;border-radius:18px;background:var(--rose);font-weight:600}
+#tt{position:fixed;left:16px;right:16px;top:calc(12px + env(safe-area-inset-top));z-index:20;background:var(--pl);border-radius:18px;padding:12px 16px;font-size:13px;box-shadow:0 10px 40px #000a;display:none}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style></head><body>
+<header><h1>Волна <button id="gear" aria-label="Настройки">⚙</button></h1>
+<div class="s"><input id="q" placeholder="Исполнитель, трек или альбом" enterkeyhint="search"><button id="go">Найти</button></div></header>
+<div class="ch" id="ch"></div>
+<h2 id="ttl">Сейчас в тренде</h2>
+<div id="list"></div>
+
+<div id="mini"><img id="mi"><div><div class="t" id="mt"></div><div class="a" id="ma"></div></div><button class="pb" id="mpb">▶</button><span id="mp"></span></div>
+
+<section id="sh"><button class="dn" id="dn" aria-label="Свернуть"></button>
+<div class="vid"><div id="yt"></div></div>
+<h3 id="st"></h3><div class="a" id="sa"></div>
+<input type="range" id="sk" min="0" max="1000" value="0"><div class="tm"><span id="c">0:00</span><span id="d">0:00</span></div>
+<div class="ct"><button id="hl" aria-label="В избранное">♡</button><button id="pv">⏮</button><button class="pb" id="pp">▶</button><button id="nx">⏭</button><button id="rp" aria-label="Повтор">↻</button></div></section>
+
+<div id="md"><div><h3 style="font:700 18px Unbounded">Ключ YouTube API</h3><p>Нужен бесплатный ключ YouTube Data API v3 (Google Cloud Console → Credentials). Он хранится только на этом устройстве.</p><input id="ki" placeholder="AIza..."><button class="pb" id="ks">Сохранить</button></div></div>
+
+<div id="tt"></div>
+<script>
+const $=s=>document.querySelector(s),esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const ld=(k,d)=>{try{return JSON.parse(localStorage.getItem(k))??d}catch{return d}},sv=(k,v)=>{try{localStorage.setItem(k,JSON.stringify(v))}catch{}};
+let key=ld('wk',''),liked=ld('wl',[]),list=[],q=[],i=-1,P,ready=false,rep=false,view='trend';
+const G=['Тренды','Поп','Рок','Хип-хоп','Электроника','Чилл','Джаз','Любимое'];
+$('#ch').innerHTML=G.map((g,n)=>`<button data-g="${g}"${n?'':' class="on"'}>${g}</button>`).join('');
+const fmt=s=>{s=Math.floor(s||0);return Math.floor(s/60)+':'+String(s%60).padStart(2,'0')};
+const dec=s=>{const t=document.createElement('textarea');t.innerHTML=s;return t.value};
+const map=r=>r.items.map(x=>({id:x.id.videoId||x.id,t:dec(x.snippet.title),a:dec(x.snippet.channelTitle).replace(/ - Topic$/,''),img:(x.snippet.thumbnails.high||x.snippet.thumbnails.default).url}));
+async function api(p){const r=await fetch('https://www.googleapis.com/youtube/v3/'+p+'&key='+key);const j=await r.json();if(j.error)throw new Error(j.error.message);return map(j)}
+function show(arr,title,msg){list=arr;$('#ttl').textContent=title;$('#list').innerHTML=arr.length?arr.map((x,n)=>`<div class="it${q[i]&&q[i].id===x.id?' cur':''}" data-n="${n}"><img loading="lazy" src="${esc(x.img)}"><div><div class="t">${esc(x.t)}</div><div class="a">${esc(x.a)}</div></div><button class="hb${liked.some(l=>l.id===x.id)?' on':''}" data-h="${n}">${liked.some(l=>l.id===x.id)?'♥':'♡'}</button></div>`).join(''):`<div class="msg">${msg||'Здесь пока пусто'}</div>`}
+async function load(g,text){
+ if(!key){$('#md').classList.add('open');return}
+ if(g==='Любимое'){show(liked,'Любимое','Нажмите ♡ у трека, и он появится здесь');return}
+ $('#list').innerHTML='<div class="msg">Загружаем…</div>';
+ try{
+  const f='videoCategoryId=10&videoEmbeddable=true&type=video&maxResults=25';
+  const arr=text?await api(`search?part=snippet&${f}&q=${encodeURIComponent(text)}`):g==='Тренды'?await api('videos?part=snippet&chart=mostPopular&videoCategoryId=10&maxResults=25&regionCode=RU'):await api(`search?part=snippet&${f}&q=${encodeURIComponent(g+' музыка')}`);
+  show(arr,text?`Результаты: «${text}»`:g==='Тренды'?'Сейчас в тренде':g,'Ничего не нашлось. Попробуйте другой запрос.');
+ }catch(e){$('#list').innerHTML=`<div class="msg">Не получилось загрузить: ${esc(e.message)}<br>Проверьте ключ в настройках ⚙</div>`}}
+$('#ch').onclick=e=>{const b=e.target.closest('button');if(!b)return;document.querySelectorAll('.ch .on').forEach(x=>x.classList.remove('on'));b.classList.add('on');load(b.dataset.g)};
+$('#go').onclick=()=>{const v=$('#q').value.trim();if(v)load('',v)};
+$('#q').onkeydown=e=>{if(e.key==='Enter')$('#go').click()};
+$('#gear').onclick=()=>{$('#ki').value=key;$('#md').classList.add('open')};
+$('#ks').onclick=()=>{key=$('#ki').value.trim();sv('wk',key);$('#md').classList.remove('open');load('Тренды')};
+$('#list').onclick=e=>{const h=e.target.closest('[data-h]');if(h){tog(list[h.dataset.h]);show(list,$('#ttl').textContent);return}const r=e.target.closest('.it');if(r)play(list,+r.dataset.n)};
+function tog(t){const n=liked.findIndex(l=>l.id===t.id);n>=0?liked.splice(n,1):liked.push(t);sv('wl',liked);ui()}
+function play(arr,n){q=arr.slice();i=n;go();$('#sh').classList.add('open')}
+function go(){const t=q[i];if(!t)return;if(ready)P.loadVideoById(t.id);ui();show(list,$('#ttl').textContent)}
+function ui(){const t=q[i];if(!t)return;$('#mini').style.display='flex';$('#mi').src=t.img;$('#mt').textContent=$('#st').textContent=t.t;$('#ma').textContent=$('#sa').textContent=t.a;$('#hl').textContent=liked.some(l=>l.id===t.id)?'♥':'♡';$('#hl').style.color=liked.some(l=>l.id===t.id)?'var(--rose)':''}
+function note(m,ms){const t=$('#tt');t.textContent=m;t.style.display='block';clearTimeout(t._h);if(ms)t._h=setTimeout(()=>t.style.display='none',ms);else t.onclick=()=>t.style.display='none'}
+const nx=()=>{if(i<q.length-1){i++;go()}else if(rep){i=0;go()}},pv=()=>{if(P&&P.getCurrentTime()>4)P.seekTo(0);else if(i>0){i--;go()}};
+const tp=()=>{if(!ready||i<0)return;P.getPlayerState()===1?P.pauseVideo():P.playVideo()};
+$('#pp').onclick=$('#mpb').onclick=e=>{e.stopPropagation();tp()};
+$('#nx').onclick=nx;$('#pv').onclick=pv;$('#hl').onclick=()=>{tog(q[i]);show(list,$('#ttl').textContent)};
+$('#rp').onclick=()=>{rep=!rep;$('#rp').style.color=rep?'var(--mint)':''};
+$('#mini').onclick=()=>$('#sh').classList.add('open');$('#dn').onclick=()=>$('#sh').classList.remove('open');
+$('#sk').oninput=e=>{if(ready)P.seekTo(P.getDuration()*e.target.value/1000,true)};
+window.onYouTubeIframeAPIReady=()=>{P=new YT.Player('yt',{playerVars:Object.assign({playsinline:1,controls:0,rel:0,modestbranding:1},/^https?:$/.test(location.protocol)?{origin:location.origin}:{}),events:{onError:e=>{const h=!/^https?:$/.test(location.protocol);note(h?'YouTube не играет из локального файла (ошибка 153). Выложите файл на GitHub Pages и откройте по ссылке https.':'Это видео нельзя встроить, включаем следующее…',h?0:2500);if(!h)setTimeout(nx,1500)},onReady:()=>{ready=true;if(q[i])P.loadVideoById(q[i].id)},onStateChange:e=>{if(e.data===0)nx();const pl=e.data===1;$('#pp').textContent=$('#mpb').textContent=pl?'❚❚':'▶'}}})};
+const sc=document.createElement('script');sc.src='https://www.youtube.com/iframe_api';document.head.appendChild(sc);
+setInterval(()=>{if(!ready||!P.getDuration)return;const d=P.getDuration(),c=P.getCurrentTime();if(!d)return;$('#c').textContent=fmt(c);$('#d').textContent=fmt(d);if(document.activeElement!==$('#sk'))$('#sk').value=c/d*1000;$('#mp').style.width=`calc((100% - 44px)*${c/d})`},500);
+if('mediaSession'in navigator){navigator.mediaSession.setActionHandler('nexttrack',nx);navigator.mediaSession.setActionHandler('previoustrack',pv)}
+load('Тренды');
+</script></body></html>
